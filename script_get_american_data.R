@@ -46,3 +46,40 @@ getCSV(state[1,1]) # la tu viens de récupérer le fichier
 ##### Deuxième étape une fois les fichiers télécharger tu veux les dézipper
 system("for i in *.ZIP; do unzip $i;done")
  
+
+############################# Test pour fusion
+
+#Générer un fichier avec le nom des tables
+
+getwd()
+setwd("/home/steve/Bureau/Data_state")
+
+name_table <- "" # Fichier avec le nom pour chaque table voulant être obtenue !!
+list_files <- list.files("/home/steve/Bureau/Data_state") # Nom des fichiers dans le dossier cible avec les fichiers extraits du ZIP
+
+for (i in 1:length(name_table)){
+  match_list <- as.list(grep(name_table[i], list_files, value=TRUE)) #Fait la liste de tous les fichiers contenant la chaine de caractère en i (name_table) dans la liste "list_files" 
+  print(name_table)
+  
+  for (y in 1:length(match_list)){
+    
+    name <- paste("output",y,sep="") # Nom de la sortie
+    path <- paste("/home/steve/Bureau/Data_state", match_list[y], sep="/") # Chemin des fichiers correspondant à la chaine de caractères
+    
+    print(path)
+    
+      if(isTRUE(y==1)=='TRUE'){
+        assign(name,read.csv2(path,header=TRUE)) # création du dataframe avec comme nom la variable "name"
+      } 
+      
+      else{
+        assign(name,read.csv2(path,header=FALSE)) #Permet d'éviter une importation multiple des entêtes de colonne
+      }
+    
+    ls_output <- lapply(grep("output",names(which(sapply(.GlobalEnv, is.data.frame))), value = TRUE),get) # Génère une liste des fichiers output avec leurs variables environnements
+    
+
+  }
+  name_merge <- paste(name_table[i],"_Final_merging", sep="")
+  assign(name_merge,do.call(rbind, ls_output)) #Réalise la fusion de tous les outputs dans un fichier "_Final_merging" correspondant au fichier à intégrer dans la base de données.
+}
