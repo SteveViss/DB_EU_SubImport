@@ -2,18 +2,23 @@
 # FIA data Script  #
 # Le 5 mars 2013   #
 # Rimouski         #
+# Auteur: Camille  #
 ####################
 
+setwd("") #Configurer emplacement des données 
+getwd()
 
 # Chargement des données
-File_names  <- read.csv2("File_names.csv",header=FALSE)
+File_names  <- read.csv2(file.choose(),header=FALSE)
 
 # il s'agit d'un fichier ou tu as tout les noms des fichiers présents sur le site j'ai fais ca en shell et avec quelque bidouille de remplacement de carctèrs mais on s'en fou....
 
-system("mkdir Data_state_steve") # créer un repértoire pour stocker les données
-setwd("Data_state_steve") # je me place dans le répértoire
+system("mkdir Data_state") # créer un repértoire pour stocker les données
+setwd("Data_state") # je me place dans le répértoire
 
-#state <- c("AZ","CO","ID","MT","NM","NV","WY","UT","AK","CA","HI","OR","WACT","DE","IA","IL","IN","KS","MA","MD","ME","MI","MN","MO","ND","NE","NH","NJ","NY","OH","PA","RI","SD","VT","WI","WV","AL","AR","FL","GA","KY","LA","MS","NC","OK","SC","TN","TX","VA") # les noms des variables ici les états
+state <- c("AZ","CO","ID","MT","NM","NV","WY","UT","AK","CA","HI","OR","WACT","DE","IA","IL","IN","KS","MA","MD","ME","MI","MN","MO","ND","NE","NH","NJ","NY","OH","PA","RI","SD","VT","WI","WV","AL","AR","FL","GA","KY","LA","MS","NC","OK","SC","TN","TX","VA") # les noms des variables ici les états
+state <- paste(state,".ZIP",sep="")
+state <- as.data.frame(state)
 
 #IL faut charger l'ensemble de la fonction dans ta console R
 ##########################################################
@@ -33,9 +38,7 @@ system(the.command) # executer la commande par le système
 
 un exemple pour AL_BOUNDARY.ZIP
 
-getCSV (File_names[1,1]) # la tu viens de récupérer le fichier
-
-
+getCSV(state[1,1]) # la tu viens de récupérer le fichier
 
 # Et maintenant on applique la fonction pour tout les fichiers
  sapply(File_names,getCSV) #pour chaque éléments de File_names on applique la fonction getCSV
