@@ -49,7 +49,7 @@ system("for i in *.ZIP; do unzip $i;done")
 getwd()
 setwd("/home/steve/Bureau/Data_state")
 
-name_table <- "COND_DWM_CALC" # Fichier avec le nom pour chaque table voulant être obtenue !!
+name_table <- read.csv(file.choose()) # Fichier avec le nom pour chaque table
 list_files <- list.files("/home/steve/Bureau/Data_state") # Nom des fichiers dans le dossier cible avec les fichiers extraits du ZIP
 
 for (i in 1:length(name_table)){
@@ -63,13 +63,8 @@ for (i in 1:length(name_table)){
     
     print(paste(name_table[i],"- File:",y,"/",length(match_list), sep=" "))
     
-      if(isTRUE(y==1)=='TRUE'){
-        assign(name,read.csv(path,header=TRUE)) # création du dataframe avec comme nom la variable "name"
-      } 
-      
-      else{
-        assign(name,read.csv(path,header=TRUE))
-      }
+  assign(name,read.csv(path,header=TRUE)) # création du dataframe avec comme nom la variable "name"
+
   }
   
   outputs <- lapply(grep("output",names(which(sapply(.GlobalEnv, is.data.frame))), value = TRUE),get) # Assemble les objets outputs
