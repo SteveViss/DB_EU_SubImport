@@ -49,7 +49,7 @@ system("for i in *.ZIP; do unzip $i;done")
 getwd()
 setwd("/home/steve/Bureau/Data_state")
 
-name_table <- "" # Fichier avec le nom pour chaque table voulant être obtenue !!
+name_table <- "COND_DWM_CALC" # Fichier avec le nom pour chaque table voulant être obtenue !!
 list_files <- list.files("/home/steve/Bureau/Data_state") # Nom des fichiers dans le dossier cible avec les fichiers extraits du ZIP
 
 for (i in 1:length(name_table)){
@@ -61,20 +61,23 @@ for (i in 1:length(name_table)){
     name <- paste("output",y,sep="") # Nom de la sortie
     path <- paste("/home/steve/Bureau/Data_state", match_list[y], sep="/") # Chemin des fichiers correspondant à la chaine de caractères
     
-    print(path)
+    print(paste(name_table[i],"- File:",y,"/",length(match_list), sep=" "))
     
       if(isTRUE(y==1)=='TRUE'){
-        assign(name,read.csv2(path,header=TRUE)) # création du dataframe avec comme nom la variable "name"
+        assign(name,read.csv(path,header=TRUE)) # création du dataframe avec comme nom la variable "name"
       } 
       
       else{
-        assign(name,read.csv2(path,header=FALSE)) #Permet d'éviter une importation multiple des entêtes de colonne
+        assign(name,read.csv(path,header=TRUE))
       }
-    
-    ls_output <- lapply(grep("output",names(which(sapply(.GlobalEnv, is.data.frame))), value = TRUE),get) # Génère une liste des fichiers output avec leurs variables environnements
-    
-
   }
+  
+  outputs <- lapply(grep("output",names(which(sapply(.GlobalEnv, is.data.frame))), value = TRUE),get) # Assemble les objets outputs
+  ls_output <- as.list(grep("output",names(which(sapply(.GlobalEnv, is.data.frame))), value = TRUE)) # Fait la liste des objets output pour les retirer plus tard
+  
   name_merge <- paste(name_table[i],"_Final_merging", sep="")
-  assign(name_merge,do.call(rbind, ls_output)) #Réalise la fusion de tous les outputs dans un fichier "_Final_merging" correspondant au fichier à intégrer dans la base de données.
+  assign(name_merge,do.call(rbind, outputs)) #Réalise la fusion de tous les outputs dans un fichier "_Final_merging" correspondant au fichier à intégrer dans la base de données.
+  do.call(rm,ls_output)
 }
+
+
