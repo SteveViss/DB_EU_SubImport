@@ -5,7 +5,7 @@
 # Auteur: Camille  #
 ####################
 
-setwd("") #Configurer emplacement des données 
+setwd("") #Configurer l'emplacement des données 
 getwd()
 
 # Chargement des données
@@ -44,9 +44,7 @@ getCSV(Files_names[1,1]) # la tu viens de récupérer le fichier
 system("for i in *.ZIP; do unzip $i;done")
  
 
-############################# Test pour fusion
-
-#Générer un fichier avec le nom des tables
+########### Fusion des fichiers en plusieurs sous-tables pour le pays au complet 
 
 getwd()
 setwd("/home/steve/Bureau/Data_state")
