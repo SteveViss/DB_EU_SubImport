@@ -5,7 +5,7 @@
 # Auteur: Camille  #
 ####################
 
-setwd("") #Configurer l'emplacement des données 
+setwd("/home/steve/Bureau/Data_state") #Configurer l'emplacement des données 
 getwd()
 
 # Chargement des données
@@ -38,7 +38,10 @@ un exemple pour AL_BOUNDARY.ZIP
 getCSV(Files_names[1,1]) # la tu viens de récupérer le fichier
 
 # Et maintenant on applique la fonction pour tout les fichiers
- sapply(File_names,getCSV) #pour chaque éléments de File_names on applique la fonction getCSV
+for (i in 1:dim(File_names)[1]){
+  getCSV(File_names[i,1])
+  cat(i)
+         }#pour chaque éléments de File_names on applique la fonction getCSV
   
 ##### Deuxième étape une fois les fichiers télécharger tu veux les dézipper
 system("for i in *.ZIP; do unzip $i;done")
