@@ -2,7 +2,7 @@
 # FIA data Script                          #
 # Monday August 12th 2013                  #
 # Rimouski                                 #
-# Auteur: Steve Vissault                   #  
+# Steve Vissault                   #  
 ############################################
 
 ########### Merge each table name to one CSV file. 
