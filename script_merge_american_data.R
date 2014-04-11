@@ -15,7 +15,7 @@ name_tables <- read.csv(file.choose()) # List on each table names (see table_nam
 list_csv <- list.files(getwd()) # List of every csv files folder.
 dir.create(file.path(getwd(), "Ouputs")) # Create a folder for Ouputs
 
-for (i in 1:NROW(name_tables))
+for (i in 1:nrow(name_tables))
 {
   match_list <- str_detect(name_tables[i,1], list_csv) # list tables with the same name.
   cat(str_c("Merging table:",name_tables[i,1]," \n"))
