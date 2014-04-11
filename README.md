@@ -6,6 +6,5 @@ This procedure allows to download zip files, unzip them and merge every csv file
 
 **Details of data files and files process via R and shell commands :**
 
-- `File_name.csv`: list of zip files
-- `Files_name_group.csv`: file names grouped
+- `Table_names.csv`: name of each FIA tables 
 - `script_get_american_data.R`: Script R for import and merge files data
