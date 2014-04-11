@@ -2,7 +2,7 @@
 # FIA data Script                                                                                          #
 # Monday April 11th 2014                                                                         #
 # Rimouski                                                                                                   #
-# Steve Vissault                                                                                           #
+# Steve Vissault and Timothee Poisot                                                                                         #
 ############################################
 
 ########### Merge each states into a unique CSV file.
@@ -15,16 +15,10 @@ name_tables <- read.csv(file.choose()) # List on each table names (see table_nam
 list_csv <- list.files(getwd()) # List of every csv files folder.
 dir.create(file.path(getwd(), "Ouputs")) # Create a folder for Ouputs
 
-<<<<<<< HEAD
-for (i in 1:dim(name_tables)[1]){
-  match_list <- grep(name_tables[i,1], list_csv, value=TRUE) # list tables with the same name.
-  cat(noquote(paste("Merging table:",name_tables[i,1],"\n",sep=" ")))
-=======
 for (i in 1:NROW(name_tables))
 {
   match_list <- str_detect(name_tables[i,1], list_csv) # list tables with the same name.
-  cat(str_c("Merge in progress for the table: ",name_tables[i,1]," \n"))
->>>>>>> c4b54166de09d0e2d96b3fe8443b9966d0a7a8c4
+  cat(str_c("Merging table:",name_tables[i,1]," \n"))
   cat("----------------------\n")
   for (y in 1:length(match_list))
   {
